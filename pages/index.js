@@ -45,20 +45,21 @@ closeButtons.forEach((el) => {
 });
 
 // Кнопка редактировать инфо
-profileEditButton.addEventListener("click", (el) => {
+profileEditButton.addEventListener("click", (ev) => {
   profileEditName.value = profileName.textContent;
   profileEditStatus.value = profileStatus.textContent;
   openPopup(profileEditPopup);
 });
 
 // Кнопка сохранить попапа редактированя профиля
-profileEditPopup.addEventListener("submit", (el)=>{
-  el.preventDefault();
+profileEditPopup.addEventListener("submit", (ev)=>{
+  ev.preventDefault();
   profileName.textContent = profileEditName.value;
   profileStatus.textContent = profileEditStatus.value;
   closePopup(profileEditPopup);
 });
 
+// Делаем лайки нажимаемыми
 likes.forEach((like) => {
   like.addEventListener( "click", (ev) => {
     like.classList.toggle("place__like-btn_active");
