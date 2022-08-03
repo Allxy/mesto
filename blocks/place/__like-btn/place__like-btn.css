@@ -8,6 +8,7 @@
   background-repeat: no-repeat;
   background-size: 100%;
   cursor: pointer;
+  transition: 0.2s linear opacity;
 }
 
 .place__like-btn:hover {
