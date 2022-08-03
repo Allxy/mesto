@@ -1,0 +1,19 @@
+.wrapper {
+  max-width: 880px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023.9px)  {
+  .wrapper {
+    max-width: 590px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767.9px)  {
+  .wrapper {
+    max-width: 320px;
+  }
+}
