@@ -6,6 +6,7 @@
   background-color: rgba(0, 0, 0, 0);
   background-image: url(../../../images/like.svg);
   background-repeat: no-repeat;
+  background-size: 100%;
   cursor: pointer;
 }
 

@@ -1,0 +1,5 @@
+.popup__title {
+  margin: 0 0 50px 0;
+  color: black;
+  align-self: flex-start;
+}
