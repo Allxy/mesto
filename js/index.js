@@ -17,22 +17,22 @@ function closePopup() {
 }
 
 function clickOutCallback(event) {
-  if(event.target.classList.contains("popup_opened")) {
-    closePopup()
+  if (event.target.classList.contains("popup_opened")) {
+    closePopup();
   }
 }
 
 function clickEditCallback() {
   popupNameInput.value = profileName.textContent;
   popupStatusInput.value = profileStatus.textContent;
-  openPopup()
+  openPopup();
 }
 
 function formSubmitCallback(event) {
   event.preventDefault();
   profileName.textContent = popupNameInput.value;
   profileStatus.textContent = popupStatusInput.value;
-  closePopup()
+  closePopup();
 }
 
 popup.addEventListener("click", clickOutCallback);
