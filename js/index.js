@@ -18,21 +18,21 @@ function closePopup() {
 
 function clickOutCallback(event) {
   if(event.target.classList.contains("popup_opened")) {
-    event.target.classList.remove("popup_opened")
+    closePopup()
   }
 }
 
 function clickEditCallback() {
   popupNameInput.value = profileName.textContent;
   popupStatusInput.value = profileStatus.textContent;
-  popup.classList.add("popup_opened");
+  openPopup()
 }
 
 function formSubmitCallback(event) {
   event.preventDefault();
   profileName.textContent = popupNameInput.value;
   profileStatus.textContent = popupStatusInput.value;
-  popup.classList.remove("popup_opened");
+  closePopup()
 }
 
 popup.addEventListener("click", clickOutCallback);
