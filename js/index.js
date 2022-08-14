@@ -22,6 +22,11 @@ const popupAddCloseButton = popupAdd.querySelector(".popup__close-btn");
 const popupAddNameInput = popupAdd.querySelector(".popup__input_type_name");
 const popupAddLinkInput = popupAdd.querySelector(".popup__input_type_link");
 
+const popupImage = document.querySelector("#popup-image");
+const popupImageImg = popupImage.querySelector(".popup__image");
+const popupImageCaption = popupImage.querySelector(".popup__img-caption");
+const popupImageCloseButton = popupImage.querySelector(".popup__close-btn");
+
 const initialCards = [
   {
     name: "Архыз",
@@ -63,18 +68,22 @@ function createNewCard(name, imgLink) {
   const cloneTitle = clone.querySelector(".place__title");
   const cloneLikeButton = clone.querySelector(".place__like-btn");
   const cloneTrashButton = clone.querySelector(".place__trash-btn");
- 
+  const cloneImage = clone.querySelector(".place__img");
 
   cloneImg.style = `background-image: url(${imgLink})`;
   cloneTitle.textContent = name;
 
-  cloneLikeButton.addEventListener("click" , event => {
+  cloneLikeButton.addEventListener("click", (event) =>
     cloneLikeButton.classList.toggle("place__like-btn_active")
-  })
+  );
 
-  cloneTrashButton.addEventListener("click" , event => {
-    cloneTrashButton.parentNode.remove();
-  })
+  cloneTrashButton.addEventListener("click", (event) =>
+    cloneTrashButton.parentNode.remove()
+  );
+
+  cloneImage.addEventListener("click", (event) => {
+    popupImageCallback(imgLink, cloneTitle.textContent);
+  });
 
   return clone;
 }
@@ -101,6 +110,12 @@ function popupAddFormCallback(event) {
   closePopup(popupAdd);
 }
 
+function popupImageCallback(imgLink, caption) {
+  popupImageImg.setAttribute("src", imgLink)
+  popupImageCaption.textContent = caption;
+  openPopup(popupImage);
+}
+
 initialCards.forEach((el) => {
   places.append(createNewCard(el.name, el.link));
 });
@@ -118,6 +133,7 @@ profileAddButton.addEventListener("click", () => openPopup(popupAdd));
 
 popupEditCloseButton.addEventListener("click", () => closePopup(popupEdit));
 popupAddCloseButton.addEventListener("click", () => closePopup(popupAdd));
+popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));
 
 popupEditForm.addEventListener("submit", popupEditFormCallback);
 popupAddAddForm.addEventListener("submit", popupAddFormCallback);
