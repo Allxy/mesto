@@ -61,9 +61,14 @@ function createNewCard(name, imgLink) {
   const clone = placeTemplate.content.cloneNode(true);
   const cloneImg = clone.querySelector(".place__img");
   const cloneTitle = clone.querySelector(".place__title");
+  const cloneLikeButton = clone.querySelector(".place__like-btn");
 
   cloneImg.style = `background-image: url(${imgLink})`;
   cloneTitle.textContent = name;
+
+  cloneLikeButton.addEventListener("click" , event => {
+    cloneLikeButton.classList.toggle("place__like-btn_active")
+  })
 
   return clone;
 }
@@ -94,11 +99,13 @@ initialCards.forEach((el) => {
   places.append(createNewCard(el.name, el.link));
 });
 
-[...allPopups].forEach(popup => addEventListener("click", (event) => {
-  if (event.target.classList.contains("popup_opened")) {
-    closePopup(popup);
-  }
-}));
+[...allPopups].forEach((popup) =>
+  popup.addEventListener("click", (event) => {
+    if (event.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+  })
+);
 
 profileEditButton.addEventListener("click", clickEditCallback);
 profileAddButton.addEventListener("click", () => openPopup(popupAdd));
