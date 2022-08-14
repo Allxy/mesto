@@ -62,12 +62,18 @@ function createNewCard(name, imgLink) {
   const cloneImg = clone.querySelector(".place__img");
   const cloneTitle = clone.querySelector(".place__title");
   const cloneLikeButton = clone.querySelector(".place__like-btn");
+  const cloneTrashButton = clone.querySelector(".place__trash-btn");
+ 
 
   cloneImg.style = `background-image: url(${imgLink})`;
   cloneTitle.textContent = name;
 
   cloneLikeButton.addEventListener("click" , event => {
     cloneLikeButton.classList.toggle("place__like-btn_active")
+  })
+
+  cloneTrashButton.addEventListener("click" , event => {
+    cloneTrashButton.parentNode.remove();
   })
 
   return clone;
