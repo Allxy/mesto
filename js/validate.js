@@ -60,13 +60,13 @@ function setupInputVlidation(
   });
 }
 
-function enableValidation({ form, ...other }) {
+function enableValidation({ form, fieldSet, ...other }) {
   [...document.querySelectorAll(`.${form}`)].forEach((formElement) => {
     formElement.addEventListener("submit", (event) => {
       event.preventDefault();
     });
 
-    [...formElement.querySelectorAll(".popup__fieldset")].forEach((fieldSet) => {
+    [...formElement.querySelectorAll(`.${fieldSet}`)].forEach((fieldSet) => {
       setupInputVlidation(fieldSet, other);
     });
   });
@@ -74,6 +74,7 @@ function enableValidation({ form, ...other }) {
 
 const validationConfig = {
   form: "popup__form",
+  fieldSet: "popup__fieldset",
   input: "popup__input",
   inputError: "popup__input_error",
   submit: "popup__save-btn",
