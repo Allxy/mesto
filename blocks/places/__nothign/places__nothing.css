@@ -1,0 +1,9 @@
+.places__nothing {
+  color: white;
+  margin: 0 auto;
+}
+
+.place + .places__nothing  {
+  display: none;
+  color: red;
+}
