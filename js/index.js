@@ -28,12 +28,12 @@ const popupImageCaption = popupImage.querySelector(".popup__img-caption");
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener('keydown', escapePressCallback)
+  document.addEventListener("keydown", escapePressCallback);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', escapePressCallback)
+  document.removeEventListener("keydown", escapePressCallback);
 }
 
 function createNewCard(name, imgLink) {
@@ -64,11 +64,11 @@ function createNewCard(name, imgLink) {
 
 function escapePressCallback(event) {
   if (event.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened")
-    if(openedPopup) {
-      closePopup(openedPopup)
+    const openedPopup = document.querySelector(".popup_opened");
+    if (openedPopup) {
+      closePopup(openedPopup);
     } else {
-      document.removeEventListener('keydown', escapePressCallback)
+      document.removeEventListener("keydown", escapePressCallback);
     }
   }
 }
@@ -80,7 +80,7 @@ function clickEditCallback() {
 }
 
 function popupEditFormCallback(event) {
-  event.preventDefault();
+  console.log("dsadsa")
   profileName.textContent = popupEditNameInput.value;
   profileStatus.textContent = popupEditStatusInput.value;
   closePopup(popupEdit);
@@ -101,8 +101,14 @@ function popupImageCallback(imgLink, caption) {
   openPopup(popupImage);
 }
 
+function popupAddCallback() {
+  popupAddNameInput.value = "";
+  popupAddLinkInput.value = "";
+  openPopup(popupAdd);
+}
+
 initialCards.forEach((el) => {
-  places.append(createNewCard(el.name, el.link));
+  places.prepend(createNewCard(el.name, el.link));
 });
 
 [...allPopups].forEach((popup) => {
@@ -118,7 +124,7 @@ initialCards.forEach((el) => {
 });
 
 profileEditButton.addEventListener("click", clickEditCallback);
-profileAddButton.addEventListener("click", () => openPopup(popupAdd));
+profileAddButton.addEventListener("click", popupAddCallback);
 
 popupEditForm.addEventListener("submit", popupEditFormCallback);
 popupAddForm.addEventListener("submit", popupAddFormCallback);
