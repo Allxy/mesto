@@ -119,7 +119,7 @@ initialCards.forEach((el) => {
   places.append(createNewCard(el.name, el.link));
 });
 
-[...allPopups].forEach((popup) =>
+[...allPopups].forEach((popup) => {
   popup.addEventListener("click", (event) => {
     const classList = event.target.classList;
     if (
@@ -128,8 +128,8 @@ initialCards.forEach((el) => {
     ) {
       closePopup(popup);
     }
-  })
-);
+  });
+});
 
 profileEditButton.addEventListener("click", clickEditCallback);
 profileAddButton.addEventListener("click", () => openPopup(popupAdd));
