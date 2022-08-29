@@ -26,39 +26,14 @@ const popupImage = document.querySelector("#popup-image");
 const popupImageImg = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__img-caption");
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener('keydown', escapePressCallback)
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', escapePressCallback)
 }
 
 function createNewCard(name, imgLink) {
@@ -85,6 +60,17 @@ function createNewCard(name, imgLink) {
   });
 
   return clone;
+}
+
+function escapePressCallback(event) {
+  if (event.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened")
+    if(openedPopup) {
+      closePopup(openedPopup)
+    } else {
+      document.removeEventListener('keydown', escapePressCallback)
+    }
+  }
 }
 
 function clickEditCallback() {
@@ -123,7 +109,7 @@ initialCards.forEach((el) => {
   popup.addEventListener("click", (event) => {
     const classList = event.target.classList;
     if (
-      classList.contains("popup_opened") ||
+      event.target === event.currentTarget ||
       classList.contains("popup__close-btn")
     ) {
       closePopup(popup);
