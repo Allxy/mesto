@@ -79,7 +79,7 @@ function escapePressHandler(event) {
 }
 
 function clickEditButtonHandler() {
-  doValidation(popupEditForm);
+  resetValidation(popupEditForm);
   popupEditNameInput.value = profileName.textContent;
   popupEditStatusInput.value = profileStatus.textContent;
   openPopup(popupEdit);
@@ -108,7 +108,7 @@ function clickCardImageHandler(caption, imgLink) {
 
 function clickAddButtonHandler() {
   popupAddForm.reset();
-  doValidation(popupAddForm);
+  resetValidation(popupAddForm);
   openPopup(popupAdd);
 }
 

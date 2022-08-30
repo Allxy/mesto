@@ -98,4 +98,4 @@ const validationConfig = {
   inputErrorActiveClass: "popup__input-error_active",
 };
 
-const doValidation = enableValidation(validationConfig);
+const resetValidation = enableValidation(validationConfig);
