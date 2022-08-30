@@ -79,9 +79,9 @@ function escapePressHandler(event) {
 }
 
 function clickEditButtonHandler() {
-  resetValidation(popupEditForm);
   popupEditNameInput.value = profileName.textContent;
   popupEditStatusInput.value = profileStatus.textContent;
+  resetValidation(popupEditForm);
   openPopup(popupEdit);
 }
 
