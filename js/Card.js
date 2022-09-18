@@ -17,7 +17,8 @@ export default class Card {
   }
 
   _clickTrashButtonHandler() {
-    this._trashButton.closest(".place").remove();
+    this._element.remove();
+    this._element = null;
   }
 
   _clickLikeButtonHandler() {
@@ -46,7 +47,8 @@ export default class Card {
     this._imageElement = this._element.querySelector(".place__img");
     this._titleElement = this._element.querySelector(".place__title");
 
-    this._imageElement.style = `background-image: url(${this._imgUrl})`;
+    this._imageElement.src = this._imgUrl;
+    this._imageElement.alt = this._title;
     this._titleElement.textContent = this._title;
 
     this._setEventListeners();

@@ -34,9 +34,8 @@
     <div class="popup popup-edit">
       <div class="popup__container">
         <button type="button" class="popup__close-btn" title="Закрыть"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
         <form name="edit" class="popup__form popup__form_type_edit" novalidate>
-          <fieldset class="popup__fieldset">
-            <legend class="popup__title">Редактировать профиль</legend>
             <input
               class="popup__input popup__input_type_name"
               placeholder="Имя"
@@ -64,7 +63,6 @@
             />
             <span class="popup__input-error" id="edit-status-input-error"></span>
             <button type="submit" class="popup__save-btn">Сохранить</button>
-          </fieldset>
         </form>
       </div>
     </div>
@@ -72,9 +70,8 @@
     <div class="popup popup-addcard">
       <div class="popup__container">
         <button type="button" class="popup__close-btn" title="Закрыть"></button>
+        <h2 class="popup__title">Новое место</h2>
         <form name="add" class="popup__form popup__form_type_add" novalidate>
-          <fieldset class="popup__fieldset">
-            <legend class="popup__title">Новое место</legend>
             <input
               class="popup__input popup__input_type_name"
               placeholder="Название"
@@ -100,7 +97,6 @@
             />
             <span class="popup__input-error" id="add-link-input-error"></span>
             <button type="submit" class="popup__save-btn">Создать</button>
-          </fieldset>
         </form>
       </div>
     </div>
@@ -115,7 +111,7 @@
 
     <template class="place-card-template">
       <article class="place">
-        <div class="place__img"></div>
+        <img alt="." src="." class="place__img"></img>
         <div class="place__info">
           <h2 class="place__title">Карачаево-Черкессия</h2>
           <button type="button" class="place__like-btn"></button>

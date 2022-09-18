@@ -38,11 +38,11 @@ const validationConfig = {
   inputErrorActiveClass: "popup__input-error_active",
 };
 
-const addFormValidator = new FormValidator(validationConfig, popupAddForm);
-const editFormValidator = new FormValidator(validationConfig, popupEditForm);
+const formAddValidator = new FormValidator(validationConfig, popupAddForm);
+const formEditValidator = new FormValidator(validationConfig, popupEditForm);
 
-const resetAddFormValidator = addFormValidator.enableValidation();
-const resetEditFormValidator = editFormValidator.enableValidation();
+formAddValidator.enableValidation();
+formEditValidator.enableValidation();
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -61,13 +61,22 @@ function openImagePopupHandler(title, imgUrl) {
   openPopup(popupImage);
 }
 
-function addCard(title, imgUrl) {
+function createCard(title, imgUrl) {
   const newCard = new Card(
     { title, imgUrl },
     ".place-card-template",
     openImagePopupHandler
   );
-  places.prepend(newCard.generateCard());
+
+  return newCard.generateCard();
+}
+
+function insertCard(card, toEnd = true) {
+  if(toEnd) {
+    places.prepend(card);
+  } else {
+    places.append(card);
+  }
 }
 
 function escapePressHandler(event) {
@@ -84,40 +93,39 @@ function escapePressHandler(event) {
 function clickEditButtonHandler() {
   popupEditNameInput.value = profileName.textContent;
   popupEditStatusInput.value = profileStatus.textContent;
-  resetEditFormValidator();
+  formEditValidator.resetValidation();
   openPopup(popupEdit);
 }
 
 function submitEditFormHandler(event) {
   profileName.textContent = popupEditNameInput.value;
   profileStatus.textContent = popupEditStatusInput.value;
-  popupEditForm.reset();
   closePopup(popupEdit);
 }
 
 function submitAddFormHandler(event) {
   event.preventDefault();
-  addCard(popupAddNameInput.value, popupAddLinkInput.value);
-  event.target.reset();
+  const card = createCard(popupAddNameInput.value, popupAddLinkInput.value);
+  insertCard(card)
   closePopup(popupAdd);
 }
 
 function clickAddButtonHandler() {
   popupAddForm.reset();
-  resetAddFormValidator();
+  formAddValidator.resetValidation();
   openPopup(popupAdd);
 }
 
 initialCards.forEach((cardData) => {
-  addCard(cardData.name, cardData.link);
+  const card = createCard(cardData.name, cardData.link);
+  insertCard(card)
 });
 
-[...allPopups].forEach((popup) => {
+allPopups.forEach((popup) => {
   popup.addEventListener("click", (event) => {
-    const classList = event.target.classList;
     if (
       event.target === event.currentTarget ||
-      classList.contains("popup__close-btn")
+      event.target.classList.contains("popup__close-btn")
     ) {
       closePopup(popup);
     }
