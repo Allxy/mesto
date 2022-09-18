@@ -72,7 +72,7 @@ function createCard(title, imgUrl) {
 }
 
 function insertCard(card, toEnd = true) {
-  if(toEnd) {
+  if (toEnd) {
     places.prepend(card);
   } else {
     places.append(card);
@@ -98,6 +98,7 @@ function clickEditButtonHandler() {
 }
 
 function submitEditFormHandler(event) {
+  event.preventDefault();
   profileName.textContent = popupEditNameInput.value;
   profileStatus.textContent = popupEditStatusInput.value;
   closePopup(popupEdit);
@@ -106,7 +107,7 @@ function submitEditFormHandler(event) {
 function submitAddFormHandler(event) {
   event.preventDefault();
   const card = createCard(popupAddNameInput.value, popupAddLinkInput.value);
-  insertCard(card)
+  insertCard(card);
   closePopup(popupAdd);
 }
 
@@ -118,7 +119,7 @@ function clickAddButtonHandler() {
 
 initialCards.forEach((cardData) => {
   const card = createCard(cardData.name, cardData.link);
-  insertCard(card)
+  insertCard(card);
 });
 
 allPopups.forEach((popup) => {
