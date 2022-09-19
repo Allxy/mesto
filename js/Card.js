@@ -3,13 +3,14 @@ export default class Card {
     this._title = data.title;
     this._imgUrl = data.imgUrl;
     this._templateSelector = templateSelector;
-    this._openPopupHandler = openPopupHandler
+    this._openPopupHandler = openPopupHandler;
   }
 
   _getTemplate() {
     return document
       .querySelector(this._templateSelector)
-      .content.cloneNode(true);
+      .content.querySelector(".place")
+      .cloneNode(true);
   }
 
   _clickCardImageHandler() {
