@@ -57,15 +57,17 @@ export default class FormValidator {
     }
   }
 
-  enableValidation() {
-    this._toggleButtonState();
-
+  _setEventListeners() {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
         this._toggleButtonState();
       });
     });
+  }
+
+  enableValidation() {
+    this._setEventListeners();
   }
 
   resetValidation() {
