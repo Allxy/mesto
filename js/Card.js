@@ -1,9 +1,9 @@
 export default class Card {
-  constructor(data, templateSelector, openPopupHandler) {
-    this._title = data.title;
-    this._imgUrl = data.imgUrl;
+  constructor({title, imgUrl}, templateSelector, handleCardClick) {
+    this._title = title;
+    this._imgUrl = imgUrl;
     this._templateSelector = templateSelector;
-    this._openPopupHandler = openPopupHandler;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -14,7 +14,7 @@ export default class Card {
   }
 
   _clickCardImageHandler() {
-    this._openPopupHandler(this._title, this._imgUrl);
+    this._handleCardClick(this._title, this._imgUrl);
   }
 
   _clickTrashButtonHandler() {
