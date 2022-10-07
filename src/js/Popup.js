@@ -1,11 +1,7 @@
-import constants from "./constants.js";
-
 export default class Popup {
   constructor(selector) {
     this._popup = document.querySelector(selector);
-    this._closeButton = this._popup.querySelector(
-      constants.popupCloseButtonSelector
-    );
+    this._closeButton = this._popup.querySelector(".popup__close-btn");
   }
 
   open() {

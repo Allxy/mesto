@@ -1,11 +1,20 @@
-import { initialCards } from "./data.js";
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import constants from "./constants.js";
-import PopupWithImage from "./PopupWithImage.js";
-import PopupWithForm from "./PopupWithForm.js";
-import Section from "./Section.js";
-import UserInfo from "./UserInfo.js";
+import { initialCards } from "../js/data.js";
+import Card from "../js/Card.js";
+import FormValidator from "../js/FormValidator.js";
+import PopupWithImage from "../js/PopupWithImage.js";
+import PopupWithForm from "../js/PopupWithForm.js";
+import Section from "../js/Section.js";
+import UserInfo from "../js/UserInfo.js";
+import "./index.css";
+
+const validationConfig = {
+  fieldSetSelector: ".popup__fieldset",
+  inputSelector: ".popup__input",
+  inputErrorSelector: ".popup__input_error",
+  submitButtonSelector: ".popup__save-btn",
+  submitButtonDisabledClass: "popup__save-btn_disabled",
+  inputErrorActiveClass: "popup__input-error_active",
+};
 
 const profileEditButton = document.querySelector(".profile__edit-btn");
 const profileAddButton = document.querySelector(".profile__add-btn");
@@ -31,12 +40,9 @@ function generateCard(values) {
 
 const userInfo = new UserInfo(".profile__name", ".profile__status");
 
-const imagePopup = new PopupWithImage(constants.popupImageSelector);
-const addCardPopup = new PopupWithForm(
-  constants.popupAddSelector,
-  generateCard
-);
-const editPopup = new PopupWithForm(constants.popupEditSelector, (values) => {
+const imagePopup = new PopupWithImage(".popup-image");
+const addCardPopup = new PopupWithForm(".popup-addcard", generateCard);
+const editPopup = new PopupWithForm(".popup-edit", (values) => {
   userInfo.setUserInfo(values.name, values.status);
 });
 
@@ -49,18 +55,18 @@ const placesSection = new Section(
     items: initialCards,
     renderer: generateCard,
   },
-  constants.placesSelector
+  ".places"
 );
 
 placesSection.renderItems();
 
 const formAddValidator = new FormValidator(
-  constants.validationConfig,
+  validationConfig,
   addCardPopup.getFormElement()
 );
 
 const formEditValidator = new FormValidator(
-  constants.validationConfig,
+  validationConfig,
   editPopup.getFormElement()
 );
 
@@ -75,8 +81,10 @@ function clickEditButtonHandler() {
   formEditValidator.resetValidation();
 }
 
+function clickAddButtonHandler() {
+  addCardPopup.open();
+  formAddValidator.resetValidation();
+}
+
 profileEditButton.addEventListener("click", clickEditButtonHandler);
-profileAddButton.addEventListener(
-  "click",
-  addCardPopup.open.bind(addCardPopup)
-);
+profileAddButton.addEventListener("click", clickAddButtonHandler);

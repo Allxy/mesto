@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
   <body class="page">
@@ -14,7 +13,11 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар" />
+          <img
+            class="profile__avatar"
+            src="<%=require('./images/avatar.jpg')%>"
+            alt="Аватар"
+          />
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button type="button" class="profile__edit-btn"></button>
@@ -36,33 +39,33 @@
         <button type="button" class="popup__close-btn" title="Закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form name="edit" class="popup__form popup__form_type_edit" novalidate>
-            <input
-              class="popup__input popup__input_type_name"
-              placeholder="Имя"
-              type="text"
-              name="name"
-              required
-              minlength="2"
-              maxlength="40"
-              autocomplete="off"
-              id="edit-name-input"
-              value=""
-            />
-            <span class="popup__input-error" id="edit-name-input-error"></span>
-            <input
-              class="popup__input popup__input_type_status"
-              placeholder="О себе"
-              type="text"
-              name="status"
-              required
-              minlength="2"
-              maxlength="200"
-              autocomplete="off"
-              id="edit-status-input"
-              value=""
-            />
-            <span class="popup__input-error" id="edit-status-input-error"></span>
-            <button type="submit" class="popup__save-btn">Сохранить</button>
+          <input
+            class="popup__input popup__input_type_name"
+            placeholder="Имя"
+            type="text"
+            name="name"
+            required
+            minlength="2"
+            maxlength="40"
+            autocomplete="off"
+            id="edit-name-input"
+            value=""
+          />
+          <span class="popup__input-error" id="edit-name-input-error"></span>
+          <input
+            class="popup__input popup__input_type_status"
+            placeholder="О себе"
+            type="text"
+            name="status"
+            required
+            minlength="2"
+            maxlength="200"
+            autocomplete="off"
+            id="edit-status-input"
+            value=""
+          />
+          <span class="popup__input-error" id="edit-status-input-error"></span>
+          <button type="submit" class="popup__save-btn">Сохранить</button>
         </form>
       </div>
     </div>
@@ -72,31 +75,31 @@
         <button type="button" class="popup__close-btn" title="Закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
         <form name="add" class="popup__form popup__form_type_add" novalidate>
-            <input
-              class="popup__input popup__input_type_name"
-              placeholder="Название"
-              type="text"
-              name="name"
-              required
-              minlength="2"
-              maxlength="30"
-              autocomplete="off"
-              id="add-name-input"
-              value=""
-            />
-            <span class="popup__input-error" id="add-name-input-error"></span>
-            <input
-              class="popup__input popup__input_type_link"
-              placeholder="Ссылка на картинку"
-              type="url"
-              name="link"
-              required
-              autocomplete="off"
-              id="add-link-input"
-              value=""
-            />
-            <span class="popup__input-error" id="add-link-input-error"></span>
-            <button type="submit" class="popup__save-btn">Создать</button>
+          <input
+            class="popup__input popup__input_type_name"
+            placeholder="Название"
+            type="text"
+            name="name"
+            required
+            minlength="2"
+            maxlength="30"
+            autocomplete="off"
+            id="add-name-input"
+            value=""
+          />
+          <span class="popup__input-error" id="add-name-input-error"></span>
+          <input
+            class="popup__input popup__input_type_link"
+            placeholder="Ссылка на картинку"
+            type="url"
+            name="link"
+            required
+            autocomplete="off"
+            id="add-link-input"
+            value=""
+          />
+          <span class="popup__input-error" id="add-link-input-error"></span>
+          <button type="submit" class="popup__save-btn">Создать</button>
         </form>
       </div>
     </div>
@@ -111,7 +114,7 @@
 
     <template class="place-card-template">
       <article class="place">
-        <img alt="." src="." class="place__img">
+        <img alt="." src="." class="place__img" />
         <div class="place__info">
           <h2 class="place__title">Карачаево-Черкессия</h2>
           <button type="button" class="place__like-btn"></button>
@@ -119,7 +122,5 @@
         <button type="button" class="place__trash-btn"></button>
       </article>
     </template>
-
-    <script type="module" src="./js/index.js"></script>
   </body>
 </html>
