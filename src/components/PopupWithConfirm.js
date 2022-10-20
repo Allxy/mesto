@@ -5,6 +5,7 @@ export default class PopupWithConfirm extends Popup {
     super(selector);
     this._callback = callback;
     this._confirmButton = this._popup.querySelector(".popup__save-btn");
+    this._isLoading = false;
   }
 
   open(data) {
@@ -12,11 +13,19 @@ export default class PopupWithConfirm extends Popup {
     this._data = data;
   }
 
+  close() {
+    super.close();
+    this._isLoading = false;
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this._confirmButton.addEventListener("click", () => {
-      this._callback(this._data);
-      this.close();
+      if (!this._isLoading) {
+        this._isLoading = true;
+        this._confirmButton.textContent = "Сохранение...";
+        this._callback(this._data);
+      }
     });
   }
 }
