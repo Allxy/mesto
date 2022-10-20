@@ -20,7 +20,7 @@
 .place__info{align-items:center;display:flex;height:80px;justify-content:space-between;width:100%}
 .place__like-btn{background-color:transparent;background-image:url(1ad06e85f169668a1f36.svg);background-repeat:no-repeat;background-size:100%;border:none;cursor:pointer;display:block;height:19px;margin:0;transition:opacity .2s linear;width:22px}.place__like-btn:hover{opacity:.5}
 .place__like-count{font-size:13px;font-weight:400;line-height:16px;margin:5px 0 0;text-align:center}
-.place__trash-btn{background-color:transparent;background-image:url(e3c42771bff3aaa52f76.svg);border:none;height:19px;position:absolute;right:20px;top:20px;transition:opacity .2s linear;width:18px}.place__trash-btn:hover{opacity:.6}
+.place__trash-btn{background-color:rgba(0,0,0,.2);background-image:url(e3c42771bff3aaa52f76.svg);border:none;box-shadow:0 0 5px 3px rgba(0,0,0,.2);height:19px;position:absolute;right:20px;top:20px;transition:opacity .2s linear;width:18px}.place__trash-btn:hover{opacity:.6}
 .place__like-btn_active{background-image:url(35948469632d0421d697.svg)}
 .place__title{font-size:24px;font-weight:900;line-height:29px;margin:0 0 0 20px;max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .footer{box-sizing:border-box;margin:0;padding:67px 0 60px;width:100%}@media screen and (max-width:1023px){.footer{padding:48px 0 36px 19px}}
