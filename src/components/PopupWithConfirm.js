@@ -15,16 +15,23 @@ export default class PopupWithConfirm extends Popup {
 
   close() {
     super.close();
-    this._isLoading = false;
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._confirmButton.addEventListener("click", () => {
       if (!this._isLoading) {
+        const initialText = this._confirmButton.textContent;
+
         this._isLoading = true;
         this._confirmButton.textContent = "Сохранение...";
-        this._callback(this._data);
+        this._callback(this._data)
+          .then(() => this.close())
+          .catch((err) => console.error(err.message))
+          .finally(() => {
+            this._confirmButton.textContent = initialText;
+            this._isLoading = false;
+          });
       }
     });
   }

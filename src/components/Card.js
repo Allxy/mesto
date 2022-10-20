@@ -1,9 +1,8 @@
 export default class Card {
   constructor(
-    { name, link, likes },
-    isLiked,
-    isOwner,
+    { name, link, likes, owner },
     templateSelector,
+    getUserId,
     handleCardClick,
     handleLikeClick,
     handleTrashClick
@@ -15,8 +14,8 @@ export default class Card {
     this._handleLikeClick = handleLikeClick;
     this._handleTrashClick = handleTrashClick;
     this._likeCount = likes.length;
-    this._isLiked = isLiked;
-    this._isOwner = isOwner;
+    this._isLiked = Boolean(likes.find((user) => user._id === getUserId()));
+    this._isOwner =  getUserId() === owner._id;
   }
 
   _getTemplate() {

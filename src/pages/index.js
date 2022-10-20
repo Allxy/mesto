@@ -14,35 +14,6 @@ import "./index.css";
 import Api from "../components/Api.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
-function createCard(values) {
-  const newCard = new Card(
-    values,
-    Boolean(values.likes.find((user) => user._id === userInfo.getId())),
-    userInfo.getId() === values.owner._id,
-    ".place-card-template",
-    imagePopup.open.bind(imagePopup),
-    (isLiked) => {
-      if (isLiked) {
-        api
-          .removeLike(values._id)
-          .then((data) => newCard.removeLike(data.likes.length));
-      } else {
-        api
-          .setLike(values._id)
-          .then((data) => newCard.setLike(data.likes.length));
-      }
-    },
-    () => {
-      deleteCardPopup.open({
-        id: values._id,
-        callback: newCard.deleteCard.bind(newCard),
-      });
-    }
-  );
-
-  return newCard.generateCard();
-}
-
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-52/",
   headers: {
@@ -57,42 +28,25 @@ const userInfo = new UserInfo(
   ".profile__avatar-image"
 );
 
-const userPromise = api.getUser().then((data) => {
-  userInfo.setUserInfo(data.name, data.about);
-  userInfo.setAvatar(data.avatar);
-  userInfo.setId(data._id);
-});
-
 const imagePopup = new PopupWithImage(".popup-image");
 const addCardPopup = new PopupWithForm(".popup-addcard", (values) =>
-  api
-    .addCard(values)
-    .then((data) => placesSection.addItem(createCard(data)))
-    .finally(() => addCardPopup.close())
+  api.addCard(values).then((data) => placesSection.addItem(data))
 );
-const editPopup = new PopupWithForm(".popup-edit", (values) => {
+const editPopup = new PopupWithForm(".popup-edit", (values) =>
   api
     .patchUser(values)
     .then((data) => userInfo.setUserInfo(data.name, data.about))
-    .finally(() => editPopup.close());
-});
+);
+const avatarPopup = new PopupWithForm(".popup-avatar", (values) =>
+  api.setAvatar({ avatar: values.link }).then(userInfo.setAvatar(values.link))
+);
 const deleteCardPopup = new PopupWithConfirm(
   ".popup-delete",
-  ({ id, callback }) => {
-    api
-      .removeCard(id)
-      .then(() => {
-        callback();
-      })
-      .finally(() => deleteCardPopup.close());
-  }
+  ({ id, callback }) =>
+    api.removeCard(id).then(() => {
+      callback();
+    })
 );
-const avatarPopup = new PopupWithForm(".popup-avatar", (values) => {
-  api
-    .setAvatar({ avatar: values.link })
-    .then(userInfo.setAvatar(values.link))
-    .finally(() => avatarPopup.close());
-});
 
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
@@ -100,16 +54,44 @@ editPopup.setEventListeners();
 deleteCardPopup.setEventListeners();
 avatarPopup.setEventListeners();
 
-const placesSection = new Section(
-  (item) => placesSection.addItem(createCard(item), true),
-  ".places"
-);
+const placesSection = new Section((values) => {
+  const newCard = new Card(
+    values,
+    ".place-card-template",
+    userInfo.getId.bind(userInfo),
+    imagePopup.open.bind(imagePopup),
+    (isLiked) => {
+      if (isLiked) {
+        api
+          .removeLike(values._id)
+          .then((data) => newCard.removeLike(data.likes.length))
+          .catch((err) => console.error(err.message));
+      } else {
+        api
+          .setLike(values._id)
+          .then((data) => newCard.setLike(data.likes.length))
+          .catch((err) => console.error(err.message));
+      }
+    },
+    () => {
+      deleteCardPopup.open({
+        id: values._id,
+        callback: newCard.deleteCard.bind(newCard),
+      });
+    }
+  );
+  return newCard.generateCard();
+}, ".places");
 
-userPromise.then(() =>
-  api.getCards().then((data) => {
-    placesSection.renderItems(data);
+Promise.all([api.getUser(), api.getCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setAvatar(userData.avatar);
+    userInfo.setId(userData._id);
+
+    placesSection.addItems(cards, true);
   })
-);
+  .catch((err) => console.error(err.message));
 
 const formAddValidator = new FormValidator(
   validationConfig,
