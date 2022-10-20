@@ -11,6 +11,7 @@ import {
 } from "../utils/constants.js";
 import "./index.css";
 import Api from "../components/Api.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
 function createCard(values) {
   const newCard = new Card(
@@ -19,14 +20,17 @@ function createCard(values) {
     userInfo.getId() === values.owner._id,
     ".place-card-template",
     imagePopup.open.bind(imagePopup),
-    (isLiked, cardId) => {
+    (isLiked) => {
       if (isLiked) {
         api
-          .removeLike(cardId)
+          .removeLike(values._id)
           .then((data) => newCard.removeLike(data.likes.length));
       } else {
-        api.setLike(cardId).then((data) => newCard.setLike(data.likes.length));
+        api.setLike(values._id).then((data) => newCard.setLike(data.likes.length));
       }
+    },
+    () => {
+      deleteCardPopup.open({ id: values._id, callback : newCard.deleteCard.bind(newCard) })
     }
   );
 
@@ -62,10 +66,14 @@ const editPopup = new PopupWithForm(".popup-edit", (values) => {
     .patchUser(values)
     .then((data) => userInfo.setUserInfo(data.name, data.about));
 });
+const deleteCardPopup = new PopupWithConfirm(".popup-delete", ({id, callback})=> {
+  api.removeCard(id).then(()=>callback())
+})
 
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
 editPopup.setEventListeners();
+deleteCardPopup.setEventListeners();
 
 const placesSection = new Section(
   (item) => placesSection.addItem(createCard(item), true),
@@ -74,10 +82,7 @@ const placesSection = new Section(
 
 userPromise.then(() =>
   api.getCards().then((data) => {
-    placesSection.addItems(
-      data.map((item) => createCard(item)),
-      true
-    );
+    placesSection.renderItems(data);
   })
 );
 

@@ -1,18 +1,19 @@
 export default class Card {
   constructor(
-    { name, link, likes, _id },
+    { name, link, likes },
     isLiked,
     isOwner,
     templateSelector,
     handleCardClick,
-    handleLikeClick
+    handleLikeClick,
+    handleTrashClick
   ) {
     this._title = name;
     this._imgUrl = link;
-    this._id = _id;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
+    this._handleTrashClick = handleTrashClick;
     this._likeCount = likes.length;
     this._isLiked = isLiked;
     this._isOwner = isOwner;
@@ -30,19 +31,18 @@ export default class Card {
   }
 
   _clickTrashButtonHandler() {
-    this._element.remove();
-    this._element = null;
+    this._handleTrashClick();
   }
 
   _clickLikeButtonHandler() {
-    this._handleLikeClick(this._isLiked, this._id);
+    this._handleLikeClick(this._isLiked);
   }
 
   _setEventListeners() {
     this._likeButton.addEventListener("click", () =>
       this._clickLikeButtonHandler()
     );
-    if (!this._isOwner)
+    if (this._isOwner)
       this._trashButton.addEventListener("click", () =>
         this._clickTrashButtonHandler()
       );
@@ -63,8 +63,8 @@ export default class Card {
     if (!this._isOwner) {
       this._trashButton.remove();
     }
-    if(this._isLiked) {
-      this.setLike(this._likeCount)
+    if (this._isLiked) {
+      this.setLike(this._likeCount);
     }
     this._imageElement.src = this._imgUrl;
     this._imageElement.alt = this._title;
@@ -76,15 +76,20 @@ export default class Card {
     return this._element;
   }
 
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
   setLike(count) {
     this._likeButton.classList.add("place__like-btn_active");
     this._likeCountElement.textContent = count;
-    this._isLiked = true
+    this._isLiked = true;
   }
 
   removeLike(count) {
     this._likeButton.classList.remove("place__like-btn_active");
     this._likeCountElement.textContent = count;
-    this._isLiked = false
+    this._isLiked = false;
   }
 }

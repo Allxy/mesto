@@ -33,6 +33,10 @@ export default class Api {
     return this._fetch("cards", "POST", data);
   }
 
+  removeCard(id) {
+    return this._fetch("cards/" + id, "DELETE")
+  }
+
   getCards() {
     return this._fetch("cards")
   }
