@@ -1,7 +1,8 @@
 .places {
   margin: 0;
   padding: 50px 0 0 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   flex-wrap: wrap;
   column-gap: 17px;
   row-gap: 20px;
@@ -11,5 +12,13 @@
 @media screen and (max-width: 1023px)  {
   .places {
     padding-top: 36px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px)  {
+  .places {
+    padding-top: 36px;
+    grid-template-columns: 1fr;
   }
 }
